@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net6;net7;net8</TargetFrameworks>
+		<PackageId>Aster.Client.Websocket</PackageId>
+		<Authors>Mariusz Kotas</Authors>
+		<Description>Client for Aster websocket API</Description>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageReleaseNotes>Enhancements</PackageReleaseNotes>
+		<Copyright>Copyright 2024 Mariusz Kotas. All rights reserved.</Copyright>
+		<PackageTags>Aster websockets websocket client cryptocurrency exchange bitcoin</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/Marfusios/aster-client-websocket</PackageProjectUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/Marfusios/aster-client-websocket/master/src/Aster.Client.Websocket/icon.png</PackageIconUrl>
+		<PackageIcon>icon.png</PackageIcon>
+		<RepositoryUrl>https://github.com/Marfusios/aster-client-websocket</RepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryType>Git</RepositoryType>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<Nullable>enable</Nullable>
+		<NoWarn>1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="System.Reactive" Version="6.0.2" />
+		<PackageReference Include="Websocket.Client" Version="5.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="icon.png" Pack="true" PackagePath="" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+</Project>

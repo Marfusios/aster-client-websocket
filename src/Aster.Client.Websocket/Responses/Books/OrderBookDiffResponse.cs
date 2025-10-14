@@ -1,0 +1,32 @@
+﻿using System.Reactive.Subjects;
+using Aster.Client.Websocket.Json;
+using Newtonsoft.Json.Linq;
+
+namespace Aster.Client.Websocket.Responses.Books
+{
+    /// <summary>
+    /// Order book difference response
+    /// </summary>
+    public class OrderBookDiffResponse : ResponseBase<OrderBookDiff>
+    {
+
+        internal static bool TryHandle(JObject response, ISubject<OrderBookDiffResponse> subject)
+        {
+            var stream = response?["stream"]?.Value<string>();
+            if (stream == null)
+                return false;
+
+            if (!stream.EndsWith("depth"))
+            {
+                // ignore, not order book diff
+                return false;
+            }
+
+            var parsed = response!.ToObject<OrderBookDiffResponse>(AsterJsonSerializer.Serializer);
+            if (parsed != null)
+                subject.OnNext(parsed);
+
+            return true;
+        }
+    }
+}

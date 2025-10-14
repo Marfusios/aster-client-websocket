@@ -1,0 +1,9 @@
+<Project>
+
+	<!-- Project defaults -->
+
+	<PropertyGroup>
+		<Version>2.4.1</Version>
+	</PropertyGroup>
+
+</Project>
