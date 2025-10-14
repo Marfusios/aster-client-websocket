@@ -15,7 +15,7 @@ namespace Aster.Client.Websocket.Tests.Integration
         [Fact(Skip = "Temporarily disable, not working in CI")]
         public async Task Connect_ShouldWorkAndReceiveResponse()
         {
-            var url = AsterValues.ApiWebsocketUrl;
+            var url = AsterValues.FuturesApiWebsocketUrl;
             using var communicator = new AsterWebsocketCommunicator(url);
             TradeResponse received = null;
             var receivedEvent = new ManualResetEvent(false);

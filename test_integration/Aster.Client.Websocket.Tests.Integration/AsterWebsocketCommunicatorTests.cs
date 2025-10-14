@@ -12,7 +12,7 @@ namespace Aster.Client.Websocket.Tests.Integration
         [Fact]
         public async Task OnStarting_ShouldGetInfoResponse()
         {
-            var url = AsterValues.ApiWebsocketUrl;
+            var url = AsterValues.FuturesApiWebsocketUrl;
             using var communicator = new AsterWebsocketCommunicator(url);
             var receivedEvent = new ManualResetEvent(false);
 

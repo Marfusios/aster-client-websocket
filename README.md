@@ -7,7 +7,7 @@
 
 This library is a .NET client for the **Aster DEX** public websocket API found here: 
 
-https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api-v3.md#partial-book-depth-streams
+[aster-finance-futures-api.md](https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md)
 
 ### License: 
     Apache License 2.0
@@ -26,7 +26,7 @@ https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api-v3.md
 
 ```csharp
 var exitEvent = new ManualResetEvent(false);
-var url = AsterValues.ApiWebsocketUrl;
+var url = AsterValues.FuturesApiWebsocketUrl;
 
 using var communicator = new AsterWebsocketCommunicator(url);
 using var client = new AsterWebsocketClient(communicator);

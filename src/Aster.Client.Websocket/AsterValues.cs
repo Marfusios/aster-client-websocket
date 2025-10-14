@@ -8,9 +8,14 @@ namespace Aster.Client.Websocket
     public static class AsterValues
     {
         /// <summary>
-        /// Market data websocket API url
+        /// Market data websocket API url for spot
         /// </summary>
-        public static readonly Uri ApiWebsocketUrl = new Uri("wss://fstream.asterdex.com");
+        public static readonly Uri SpotApiWebsocketUrl = new Uri("wss://sstream.asterdex.com");
+
+        /// <summary>
+        /// Market data websocket API url for futures
+        /// </summary>
+        public static readonly Uri FuturesApiWebsocketUrl = new Uri("wss://fstream.asterdex.com");
 
         /// <summary>
         /// User data websocket API url

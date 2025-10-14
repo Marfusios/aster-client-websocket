@@ -1,112 +1,134 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace Aster.Client.Websocket.Responses.Kline
 {
     /// <summary>
-    /// The current klines/candlestick
+    /// The current klines/candlestick event payload.
     /// </summary>
     public class Kline : MessageBase
     {
         /// <summary>
-        /// Kline start time
-        /// </summary>
-        [JsonProperty("t")]
-        public double StartTime { get; set; }
-
-        /// <summary>
-        /// Kline close time
-        /// </summary>
-        [JsonProperty("T")]
-        public double CloseTime { get; set; }
-
-        /// <summary>
-        /// Symbol
+        /// Symbol the event refers to (top-level <c>s</c> field).
         /// </summary>
         [JsonProperty("s")]
         public string? Symbol { get; set; }
 
         /// <summary>
-        /// Interval
+        /// Raw kline tick details as delivered within the nested <c>k</c> object.
         /// </summary>
-        [JsonProperty("i")]
-        public string? Interval { get; set; }
+        [JsonProperty("k")]
+        public KlineTick Tick { get; set; } = new KlineTick();
 
-        /// <summary>
-        /// First trade ID
-        /// </summary>
-        [JsonProperty("f")]
-        public double FirstTradeId { get; set; }
+        [JsonIgnore]
+        public double StartTime
+        {
+            get => Tick.StartTime;
+            set => Tick.StartTime = value;
+        }
 
-        /// <summary>
-        /// Last trade ID
-        /// </summary>
-        [JsonProperty("L")]
-        public double LastTradeId { get; set; }
+        [JsonIgnore]
+        public double CloseTime
+        {
+            get => Tick.CloseTime;
+            set => Tick.CloseTime = value;
+        }
 
-        /// <summary>
-        /// Open price
-        /// </summary>
-        [JsonProperty("o")]
-        public double OpenPrice { get; set; }
+        [JsonIgnore]
+        public string? Interval
+        {
+            get => Tick.Interval;
+            set => Tick.Interval = value;
+        }
 
-        /// <summary>
-        /// Close price
-        /// </summary>
-        [JsonProperty("c")]
-        public double ClosePrice { get; set; }
+        [JsonIgnore]
+        public double FirstTradeId
+        {
+            get => Tick.FirstTradeId;
+            set => Tick.FirstTradeId = value;
+        }
 
-        /// <summary>
-        /// High price
-        /// </summary>
-        [JsonProperty("h")]
-        public double HighPrice { get; set; }
+        [JsonIgnore]
+        public double LastTradeId
+        {
+            get => Tick.LastTradeId;
+            set => Tick.LastTradeId = value;
+        }
 
-        /// <summary>
-        /// Low price
-        /// </summary>
-        [JsonProperty("l")]
-        public double LowPrice { get; set; }
+        [JsonIgnore]
+        public double OpenPrice
+        {
+            get => Tick.OpenPrice;
+            set => Tick.OpenPrice = value;
+        }
 
-        /// <summary>
-        /// Base asset volume
-        /// </summary>
-        [JsonProperty("v")]
-        public double BaseAssetVolume { get; set; }
+        [JsonIgnore]
+        public double ClosePrice
+        {
+            get => Tick.ClosePrice;
+            set => Tick.ClosePrice = value;
+        }
 
-        /// <summary>
-        /// Number of trades
-        /// </summary>
-        [JsonProperty("n")]
-        public double NumberTrades { get; set; }
+        [JsonIgnore]
+        public double HighPrice
+        {
+            get => Tick.HighPrice;
+            set => Tick.HighPrice = value;
+        }
 
-        /// <summary>
-        /// Is this kline closed?
-        /// </summary>
-        [JsonProperty("x")]
-        public bool IsClose { get; set; }
+        [JsonIgnore]
+        public double LowPrice
+        {
+            get => Tick.LowPrice;
+            set => Tick.LowPrice = value;
+        }
 
-        /// <summary>
-        /// Quote asset volume
-        /// </summary>
-        [JsonProperty("q")]
-        public double QuoteAssetVolume { get; set; }
+        [JsonIgnore]
+        public double BaseAssetVolume
+        {
+            get => Tick.BaseAssetVolume;
+            set => Tick.BaseAssetVolume = value;
+        }
 
-        /// <summary>
-        /// Taker buy base asset volume
-        /// </summary>
-        [JsonProperty("V")]
-        public double TakerBuyBaseAssetVolume { get; set; }
+        [JsonIgnore]
+        public double NumberTrades
+        {
+            get => Tick.NumberTrades;
+            set => Tick.NumberTrades = value;
+        }
 
-        /// <summary>
-        /// Taker buy quote asset volume
-        /// </summary>
-        [JsonProperty("Q")]
-        public double TakerBuyQuoteAssetVolume { get; set; }
+        [JsonIgnore]
+        public bool IsClose
+        {
+            get => Tick.IsClose;
+            set => Tick.IsClose = value;
+        }
 
-        /// <summary>
-        /// Ignore
-        /// </summary>
-        [JsonProperty("B")]
-        public double Ignore { get; set; }
+        [JsonIgnore]
+        public double QuoteAssetVolume
+        {
+            get => Tick.QuoteAssetVolume;
+            set => Tick.QuoteAssetVolume = value;
+        }
+
+        [JsonIgnore]
+        public double TakerBuyBaseAssetVolume
+        {
+            get => Tick.TakerBuyBaseAssetVolume;
+            set => Tick.TakerBuyBaseAssetVolume = value;
+        }
+
+        [JsonIgnore]
+        public double TakerBuyQuoteAssetVolume
+        {
+            get => Tick.TakerBuyQuoteAssetVolume;
+            set => Tick.TakerBuyQuoteAssetVolume = value;
+        }
+
+        [JsonIgnore]
+        public double Ignore
+        {
+            get => Tick.Ignore;
+            set => Tick.Ignore = value;
+        }
     }
 }

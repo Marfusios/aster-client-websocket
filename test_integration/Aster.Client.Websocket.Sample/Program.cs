@@ -22,7 +22,7 @@ namespace Aster.Client.Websocket.Sample
 
         private const string ApiKey = "";
         private const string ApiSecret = "";
-        
+
         static async Task Main(string[] args)
         {
             var logger = InitLogging();
@@ -41,7 +41,7 @@ namespace Aster.Client.Websocket.Sample
             Log.Debug("====================================");
 
 
-            var url = AsterValues.ApiWebsocketUrl;
+            var url = AsterValues.FuturesApiWebsocketUrl;
             using (var communicator = new AsterWebsocketCommunicator(url, logger.CreateLogger<AsterWebsocketCommunicator>()))
             {
                 communicator.Name = "Aster-1";
@@ -50,7 +50,7 @@ namespace Aster.Client.Websocket.Sample
                     Log.Information("Reconnection happened, type: {type}", info.Type));
                 communicator.DisconnectionHappened.Subscribe(info =>
                     Log.Information("Disconnection happened, type: {type}", info.Type));
-                
+
                 using (var client = new AsterWebsocketClient(communicator, logger.CreateLogger<AsterWebsocketClient>()))
                 {
                     SubscribeToStreams(client, communicator);
@@ -64,17 +64,17 @@ namespace Aster.Client.Websocket.Sample
                     new OrderBookPartialSubscription("btcusdt", 5)
                     //new OrderBookPartialSubscription("bnbusdt", 10),
                     //new OrderBookDiffSubscription("btcusdt"),
-                    //new BookTickerSubscription("btcusdt"),
+                    //new BookTickerSubscription("btcusdt")
                     //new KlineSubscription("btcusdt", "1m"),
                     //new MiniTickerSubscription("btcusdt")
                     //new AllMarketMiniTickerSubscription()
                     );
-                    
+
                     if (!string.IsNullOrWhiteSpace(ApiSecret))
                     {
                         await communicator.Authenticate(ApiKey, new AsterHmac(ApiSecret));
                     }
-                    
+
                     await communicator.Start();
                     //fCommunicator.Start().Wait();
 
@@ -196,7 +196,7 @@ namespace Aster.Client.Websocket.Sample
             {
                 var data = order.Order;
                 Log.Information("Order {type} {side} updated, amount: {quantity}, price: {price}. Filled: {filled}. " +
-                                "Status: {status}, execution: {executionType}", 
+                                "Status: {status}, execution: {executionType}",
                     data.Type, data.Side, data.Quantity, data.Price, data.QuantityFilled, data.Status, data.ExecutionType);
             });
         }
