@@ -5,13 +5,12 @@
 [![Nuget downloads](https://img.shields.io/nuget/dt/Aster.Client.Websocket?style=flat-square)](https://www.nuget.org/packages/Aster.Client.Websocket)
 [![CI build](https://img.shields.io/github/check-runs/marfusios/aster-client-websocket/master?style=flat-square&label=build)](https://github.com/Marfusios/aster-client-websocket/actions/workflows/dotnet-core.yml)
 
-This library is a .NET client for the **Aster DEX** public websocket API.  
-It follows the public market data specification (base url `wss://fstream.asterdex.com`), supporting raw streams
-(`/ws/<stream>`) and combined streams (`/stream?streams=<stream>/<stream>`).
+This library is a .NET client for the **Aster DEX** public websocket API found here: 
 
-### License
+https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api-v3.md#partial-book-depth-streams
 
-Apache License 2.0
+### License: 
+    Apache License 2.0
 
 ### Highlights
 
@@ -78,9 +77,7 @@ await communicator.Start();
 ```
 
 More samples:
-- console app – `test_integration/Aster.Client.Websocket.Sample/Program.cs`
-- WinForms example – `test_integration/Aster.Client.Websocket.Sample.WinForms`
-- integration tests – `test_integration/Aster.Client.Websocket.Tests.Integration`
+- console app ([link](test_integration/Aster.Client.Websocket.Sample/Program.cs))
 
 ### Working with streams
 
