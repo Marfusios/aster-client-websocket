@@ -21,7 +21,7 @@ namespace Aster.Client.Websocket.Websockets
         private IDisposable? _disconnectionStream;
         private IDisposable? _timerStream;
         private string? _listenKey;
-        
+
         /// <inheritdoc />
         public AsterWebsocketCommunicator(Uri url, Func<ClientWebSocket>? clientFactory = null)
             : base(url, clientFactory)
@@ -56,10 +56,7 @@ namespace Aster.Client.Websocket.Websockets
                 .Timer(TimeSpan.FromMinutes(55), TimeSpan.FromMinutes(55))
                 .Subscribe(x =>
                 {
-                    if (_userApi == null || string.IsNullOrWhiteSpace(_listenKey))
-                        return;
-                    _logger.LogInformation("Refreshing listen key to keep it alive");
-                    _ = _userApi.KeepAliveListenKey(_listenKey);
+                    _ = RefreshAuthentication();
                 });
         }
 
@@ -74,21 +71,36 @@ namespace Aster.Client.Websocket.Websockets
             _timerStream?.Dispose();
             base.Dispose();
         }
-        
+
         private async Task AuthenticateUrl()
         {
             if (_userApi == null)
                 return;
-            
+
             _logger.LogInformation("Getting a new listen key for authenticated websocket connection");
             var response = await _userApi.CreateListenKey();
             _listenKey = response.ListenKey;
             if (string.IsNullOrWhiteSpace(_listenKey))
                 throw new AsterException("Listen key is empty, cannot authenticate websocket connection");
-            
+
             var newUrl = AsterValues.UserWebsocketUrl(_listenKey);
             Url = newUrl;
             _logger.LogInformation("The new listen key was obtained, changing websocket url to {url}", Url);
+        }
+
+        private async Task RefreshAuthentication()
+        {
+            try
+            {
+                if (_userApi == null || string.IsNullOrWhiteSpace(_listenKey))
+                    return;
+                _logger.LogInformation("Refreshing listen key to keep it alive");
+                await _userApi.KeepAliveListenKey(_listenKey);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Refreshing listen key failed, error: {errorMessage}", e.Message);
+            }
         }
     }
 }
