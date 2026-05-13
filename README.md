@@ -20,7 +20,8 @@ This library is a .NET client for the **Aster DEX** public websocket API found h
 - authenticated user streams for margin calls, balance/position updates, order trade updates, and config changes
 - ready for private streams once the authenticated API is published
 - integrates with [System.Reactive](https://github.com/dotnet/reactive) for composable stream handling
-- targets `netstandard2.1`, `net6`, `net7`, `net8`
+- targets `netstandard2.1`, `net6.0`, `net7.0`, `net8.0`, `net9.0`, `net10.0`
+- built on [Websocket.Client 5.4.0](https://www.nuget.org/packages/Websocket.Client/5.4.0) for websocket transport, reconnects, and lower-allocation message handling
 
 ### Quick start
 
