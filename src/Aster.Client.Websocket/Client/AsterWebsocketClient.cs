@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Aster.Client.Websocket.Communicator;
 using Aster.Client.Websocket.Exceptions;
 using Aster.Client.Websocket.Json;
@@ -70,10 +69,15 @@ namespace Aster.Client.Websocket.Client
         {
             AsterValidations.ValidateInput(baseUrl, nameof(baseUrl));
 
-            if (subscriptions == null || !subscriptions.Any())
+            if (subscriptions == null || subscriptions.Length == 0)
                 throw new AsterBadInputException("Please provide at least one subscription");
 
-            var streams = subscriptions.Select(x => x.StreamName).ToArray();
+            var streams = new string[subscriptions.Length];
+            for (var i = 0; i < subscriptions.Length; i++)
+            {
+                streams[i] = subscriptions[i].StreamName;
+            }
+
             var urlPart = string.Join("/", streams);
             var urlPartFull = $"/stream?streams={urlPart}";
 

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System;
 using System.Reactive.Subjects;
 using Aster.Client.Websocket.Communicator;
 using Aster.Client.Websocket.Json;
@@ -20,10 +21,10 @@ namespace Aster.Client.Websocket.Responses.Books
             if (stream == null)
                 return false;
 
-            if (!stream.Contains("depth"))
+            if (stream.IndexOf("depth", StringComparison.Ordinal) < 0)
                 return false;
 
-            if (stream.EndsWith("depth"))
+            if (stream.EndsWith("depth", StringComparison.Ordinal))
             {
                 // ignore, not partial, but diff response
                 return false;
@@ -32,7 +33,7 @@ namespace Aster.Client.Websocket.Responses.Books
             var parsed = response.ToObject<OrderBookPartialResponse>(AsterJsonSerializer.Serializer);
             if (parsed?.Data != null)
             {
-                parsed.Data.Symbol = stream.Split('@').FirstOrDefault();
+                parsed.Data.Symbol = GetSymbol(stream);
                 subject.OnNext(parsed);
             }
 
@@ -44,7 +45,7 @@ namespace Aster.Client.Websocket.Responses.Books
         /// </summary>
         public static void StreamFakeSnapshot(OrderBookPartial snapshot, IAsterCommunicator communicator)
         {
-            var symbolSafe = (snapshot?.Symbol ?? string.Empty).ToLower();
+            var symbolSafe = (snapshot?.Symbol ?? string.Empty).ToLowerInvariant();
             var countSafe = snapshot?.Bids?.Length ?? 0;
             var response = new OrderBookPartialResponse();
             response.Data = snapshot;
@@ -52,6 +53,12 @@ namespace Aster.Client.Websocket.Responses.Books
 
             var serialized = JsonConvert.SerializeObject(response, AsterJsonSerializer.Settings);
             communicator.StreamFakeMessage(ResponseMessage.TextMessage(serialized));
+        }
+
+        private static string GetSymbol(string stream)
+        {
+            var separator = stream.IndexOf('@');
+            return separator >= 0 ? stream.Substring(0, separator) : stream;
         }
     }
 }
